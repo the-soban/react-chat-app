@@ -1,4 +1,5 @@
 import React from 'react'
+import AddIcon from '../images/addAvatar.png'
 
 const Register = () => {
     return (
@@ -14,9 +15,15 @@ const Register = () => {
                     <input type="text" placeholder="Your Display Name" />
                     <input type="email" placeholder="Your Email" />
                     <input type="password" placeholder="Your Password" />
-                    <input type="file" placeholder="Your Avatar" id="file" />
+                    <input
+                        type="file"
+                        placeholder="Your Avatar"
+                        className="file"
+                        id="file"
+                    />
                     <label htmlFor="file" className="file-label">
-                        Add your avatar
+                        <img src={AddIcon} alt="add icon" />
+                        <span>Add your avatar</span>
                     </label>
                     <button type="submit">Register</button>
                 </form>

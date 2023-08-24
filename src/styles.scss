@@ -88,6 +88,20 @@
                 display: none;
             }
 
+            .file-label {
+                font-size: 16px;
+                color: var(--white-neutral);
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 12px;
+                cursor: pointer;
+
+                img {
+                    width: 54px;
+                }
+            }
+
             button {
                 color: var(--white-neutral);
                 background: linear-gradient(
