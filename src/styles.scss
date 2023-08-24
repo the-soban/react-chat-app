@@ -1,5 +1,109 @@
+:root {
+    --manrope: 'Manrope', sans-serif;
+    --barlow: 'Barlow Semi Condensed', sans-serif;
+    --red-primary: rgb(255, 105, 105);
+    --white-neutral: rgb(255, 255, 255);
+    --darkblue-body: rgb(47, 45, 63);
+    --darkblue-chatbox: rgb(40, 38, 57);
+    --darkblue-chatbubble: rgb(58, 56, 76);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: var(--manrope);
+}
+
+.form-container {
+    background-color: var(--darkblue-body);
+    // max-height: 100vh;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .form-wrapper {
+        background-color: var(--darkblue-chatbox);
+        box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.185);
+        padding: 40px 60px;
+        border-radius: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+        .logo {
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .logo h2 {
+            font-family: var(--barlow);
+            font-size: 64px;
+            background: linear-gradient(
+                155deg,
+                rgb(255, 86, 86) 20%,
+                rgb(247, 54, 54) 80%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            .dot {
+                -webkit-text-fill-color: var(--white-neutral);
+            }
+        }
+
+        .title {
+            font-family: var(--manrope);
+            color: #ffffffc4;
+            text-align: center;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+
+            input {
+                font-family: var(--manrope);
+                font-size: 16px;
+                color: var(--white-neutral);
+                background: transparent;
+                padding: 14px;
+                outline: none;
+                border: none;
+                border-bottom: 1px solid var(--white-neutral);
+                &:last-of-type {
+                    border: none;
+                }
+                width: 300px;
+                &::placeholder {
+                    font-family: var(--manrope);
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+            }
+
+            .file {
+                display: none;
+            }
+
+            button {
+                color: var(--white-neutral);
+                background: linear-gradient(
+                    155deg,
+                    rgb(255, 86, 86) 20%,
+                    rgb(247, 54, 54) 80%
+                );
+                font-size: 18px;
+                font-weight: 600;
+                letter-spacing: 1px;
+                padding: 16px;
+                border-radius: 8px;
+                border: none;
+                outline: none;
+                cursor: pointer;
+            }
+        }
+    }
 }
