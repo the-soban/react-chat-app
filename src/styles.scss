@@ -49,6 +49,7 @@
             -webkit-text-fill-color: transparent;
 
             .dot {
+                font-family: var(--barlow);
                 -webkit-text-fill-color: var(--white-neutral);
             }
         }
@@ -62,7 +63,7 @@
         .form {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
 
             input {
                 font-family: var(--manrope);
@@ -72,7 +73,8 @@
                 padding: 14px;
                 outline: none;
                 border: none;
-                border-bottom: 1px solid var(--white-neutral);
+                border-bottom: 2px solid #ffffff49;
+                transition: all 0.4s ease-in;
                 &:last-of-type {
                     border: none;
                 }
@@ -82,6 +84,10 @@
                     font-size: 16px;
                     font-weight: 600;
                 }
+            }
+
+            input:focus {
+                border-bottom: 2px solid #ffffff;
             }
 
             .file {
