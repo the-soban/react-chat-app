@@ -15,6 +15,8 @@
     font-family: var(--manrope);
 }
 
+// --- REGISTER AND LOGIN PAGES ---
+
 .form-container {
     background-color: var(--darkblue-body);
     // max-height: 100vh;
@@ -75,9 +77,6 @@
                 border: none;
                 border-bottom: 2px solid #ffffff49;
                 transition: all 0.4s ease-in;
-                &:last-of-type {
-                    border: none;
-                }
                 width: 300px;
                 &::placeholder {
                     font-family: var(--manrope);
@@ -125,5 +124,22 @@
                 cursor: pointer;
             }
         }
+    }
+}
+
+// --- REGISTER AND LOGIN PAGES END ---
+
+// --- HOME PAGE ---
+
+.home {
+    background-color: var(--darkblue-body);
+    // max-height: 100vh;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .container{
+        
     }
 }
