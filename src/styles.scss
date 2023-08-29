@@ -283,6 +283,27 @@
 
         .chatbox {
             flex: 2;
+
+            .chat-info {
+                height: 50px;
+                background-color: var(--darkblue-chatbubble);
+                color: #ffffff;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 16px;
+
+                .chat-icons {
+                    display: flex;
+                    gap: 12px;
+
+                    img {
+                        height: 34px;
+                        width: 34px;
+                        cursor: pointer;
+                    }
+                }
+            }
         }
     }
 }
