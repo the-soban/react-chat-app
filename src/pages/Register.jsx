@@ -47,6 +47,12 @@ const Register = () => {
                                 photoURL: downloadURL,
                             });
                             console.log("Signed up");
+
+                            await setDoc(
+                                doc(db, "userChats", res.user.uid),
+                                {}
+                            );
+                            console.log("userChats collection created");
                         }
                     );
                 }
