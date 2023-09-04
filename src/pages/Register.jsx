@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import AddIcon from "../images/addAvatar.png";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, db, storage } from "../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
 
 const Register = () => {
+    const [error, setError] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const displayName = e.target[0].value;
@@ -11,7 +15,46 @@ const Register = () => {
         const password = e.target[2].value;
         const file = e.target[3].files[0];
 
-        const res = await createUserWithEmailAndPassword(auth, email, password);
+        try {
+            const res = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+            const storageRef = ref(storage, `${displayName}'s image`);
+
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on(
+                (error) => {
+                    setError(true);
+                    console.log(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then(
+                        async (downloadURL) => {
+                            await updateProfile(res.user, {
+                                displayName,
+                                photoURL: downloadURL,
+                            });
+                            console.log("File available at", downloadURL);
+
+                            await setDoc(doc(db, "users", res.user.uid), {
+                                uid: res.user.uid,
+                                displayName,
+                                email,
+                                photoURL: downloadURL,
+                            });
+                            console.log("Signed up");
+                        }
+                    );
+                }
+            );
+        } catch (error) {
+            setError(true);
+            console.log(error);
+        }
     };
 
     return (
@@ -38,6 +81,7 @@ const Register = () => {
                         <span>Add your avatar</span>
                     </label>
                     <button type="submit">Register</button>
+                    {error && <span>An error occured!</span>}
                 </form>
                 <p>Already have an account? Login</p>
             </div>
