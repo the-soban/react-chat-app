@@ -71,6 +71,9 @@ const Search = () => {
                 });
             }
         } catch (error) {}
+
+        setUser(null);
+        setUsername("");
     };
 
     const handleKey = (e) => {
@@ -83,6 +86,7 @@ const Search = () => {
                 <input
                     type="text"
                     placeholder="Search for a chat..."
+                    value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     onKeyDown={handleKey}
                 />
