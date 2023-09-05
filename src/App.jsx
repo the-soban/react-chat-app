@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import "./styles.scss";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
+import { auth } from "./firebase";
+import { signOut } from "firebase/auth";
 
 function App() {
     const { currentUser } = useContext(AuthContext);
@@ -13,6 +15,8 @@ function App() {
         if (!currentUser) {
             return <Navigate to="/login" />;
         }
+
+        return children;
     };
 
     return (

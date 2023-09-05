@@ -1,6 +1,6 @@
 :root {
-    --manrope: 'Manrope', sans-serif;
-    --barlow: 'Barlow Semi Condensed', sans-serif;
+    --manrope: "Manrope", sans-serif;
+    --barlow: "Barlow Semi Condensed", sans-serif;
     --red-primary: rgb(255, 105, 105);
     --white-neutral: rgb(255, 255, 255);
     --darkblue-body: rgb(47, 45, 63);
@@ -140,10 +140,9 @@
     align-items: center;
 
     .container {
-        outline: 2px solid red;
         border-radius: 12px;
-        width: 65%;
-        height: 80%;
+        width: 80%;
+        height: 90%;
         display: flex;
         overflow: hidden;
 
