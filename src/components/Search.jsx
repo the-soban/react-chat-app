@@ -1,22 +1,55 @@
-import React from 'react'
+import React, { useState } from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Search = () => {
+    const [username, setUsername] = useState("");
+    const [user, setUser] = useState(null);
+    const [error, setError] = useState(false);
+
+    const handleSearch = async () => {
+        const q = query(
+            collection(db, "users"),
+            where("displayName", "==", username)
+        );
+
+        try {
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                setUser(doc.data());
+                console.log("Searched user: ", doc.id, " => ", doc.data());
+            });
+        } catch (error) {
+            setError(true);
+            console.log(error);
+        }
+    };
+
+    const handleKey = (e) => {
+        e.code === "Enter" && handleSearch();
+    };
+
     return (
         <div className="search">
             <div className="search-form">
-                <input type="text" placeholder="Search for a chat..." />
-            </div>
-            <div className="user-chat">
-                <img
-                    src="https://images.unsplash.com/photo-1593283590172-adfce2adf213?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-                    alt=""
+                <input
+                    type="text"
+                    placeholder="Search for a chat..."
+                    onChange={(e) => setUsername(e.target.value)}
+                    onKeyDown={handleKey}
                 />
-                <div className="user-chat-info">
-                    <span>Soban</span>
-                </div>
             </div>
+            {error && <span>Error! user not found.</span>}
+            {user && (
+                <div className="user-chat">
+                    <img src={user.photoURL} alt="" />
+                    <div className="user-chat-info">
+                        <span>{user.displayName}</span>
+                    </div>
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default Search
+export default Search;
