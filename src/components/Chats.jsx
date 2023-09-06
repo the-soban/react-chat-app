@@ -1,42 +1,45 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase";
+import { AuthContext } from "../context/AuthContext";
 
 const Chats = () => {
+    const [chats, setChats] = useState([]);
+    const { currentUser } = useContext(AuthContext);
+
+    //useEffect hook to update the chats in realtime, whenever the useChats collection changes, it will be displayed here using useEffect hook
+    useEffect(() => {
+        const getChats = () => {
+            const unsub = onSnapshot(
+                doc(db, "userChats", currentUser.uid),
+                (doc) => {
+                    setChats(doc.data());
+                    console.log("Current data: ", doc.data());
+                }
+            );
+
+            return () => {
+                unsub();
+            };
+        };
+
+        currentUser.uid && getChats();
+    }, [currentUser.uid]);
+
+    console.log(Object.entries(chats));
     return (
         <div className="chats">
-            <div className="user-chat">
-                <img
-                    src="https://images.unsplash.com/photo-1593283590172-adfce2adf213?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-                    alt=""
-                />
-                <div className="user-chat-info">
-                    <span>Soban</span>
-                    <p>Hello mate!</p>
+            {Object.entries(chats)?.map((chat) => (
+                <div className="user-chat" key={chat[0]}>
+                    <img src={chat[1].userInfo.photoURL} alt="" />
+                    <div className="user-chat-info">
+                        <span>{chat[1].userInfo.displayName}</span>
+                        <p>{chat[1].userInfo.lastMessage?.text}</p>
+                    </div>
                 </div>
-            </div>
-
-            <div className="user-chat">
-                <img
-                    src="https://images.unsplash.com/photo-1593283590172-adfce2adf213?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-                    alt=""
-                />
-                <div className="user-chat-info">
-                    <span>Soban</span>
-                    <p>Hello mate!</p>
-                </div>
-            </div>
-
-            <div className="user-chat">
-                <img
-                    src="https://images.unsplash.com/photo-1593283590172-adfce2adf213?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-                    alt=""
-                />
-                <div className="user-chat-info">
-                    <span>Soban</span>
-                    <p>Hello mate!</p>
-                </div>
-            </div>
+            ))}
         </div>
-    )
-}
+    );
+};
 
-export default Chats
+export default Chats;
