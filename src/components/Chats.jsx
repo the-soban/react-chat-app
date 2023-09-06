@@ -2,10 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
+import { ChatContext } from "../context/ChatContext";
 
 const Chats = () => {
     const [chats, setChats] = useState([]);
     const { currentUser } = useContext(AuthContext);
+    const { dispatch } = useContext(ChatContext);
 
     //useEffect hook to update the chats in realtime, whenever the useChats collection changes, it will be displayed here using useEffect hook
     useEffect(() => {
@@ -26,11 +28,20 @@ const Chats = () => {
         currentUser.uid && getChats();
     }, [currentUser.uid]);
 
+    const handleSelect = (u) => {
+        dispatch({ type: "CHANGE_USER", payload: u });
+    };
+
     console.log(Object.entries(chats));
+
     return (
         <div className="chats">
             {Object.entries(chats)?.map((chat) => (
-                <div className="user-chat" key={chat[0]}>
+                <div
+                    className="user-chat"
+                    key={chat[0]}
+                    onClick={() => handleSelect(chat[1].userInfo)}
+                >
                     <img src={chat[1].userInfo.photoURL} alt="" />
                     <div className="user-chat-info">
                         <span>{chat[1].userInfo.displayName}</span>
