@@ -50,6 +50,9 @@ const Input = () => {
                 }),
             });
         }
+
+        setText("");
+        setImage(null);
     };
 
     return (
@@ -58,6 +61,7 @@ const Input = () => {
                 type="text"
                 placeholder="Type your msessage..."
                 onChange={(e) => setText(e.target.value)}
+                value={text}
             />
             <div className="send">
                 <img src={AttachIcon} alt="" />
