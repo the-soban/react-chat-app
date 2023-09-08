@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 
-const Message = ({ message, date }) => {
+const Message = ({ message, imageLink }) => {
     const { currentUser } = useContext(AuthContext);
     const { data } = useContext(ChatContext);
 
@@ -12,7 +12,7 @@ const Message = ({ message, date }) => {
     }, [message]);
 
     console.log(message);
-    console.log(date);
+    console.log(imageLink);
 
     return (
         <div
@@ -34,7 +34,11 @@ const Message = ({ message, date }) => {
             </div>
             <div className="message-content">
                 <p>{message.text}</p>
-                {message.image && <img src={message.image} alt="" />}
+                {message.image && (
+                    <a href={imageLink} target="_blank">
+                        <img src={message.image} alt="" />
+                    </a>
+                )}
             </div>
         </div>
     );
