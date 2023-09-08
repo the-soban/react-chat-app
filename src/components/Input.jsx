@@ -3,7 +3,13 @@ import AttachIcon from "../images/attach.png";
 import ImgIcon from "../images/img.png";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
-import { Timestamp, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import {
+    Timestamp,
+    arrayUnion,
+    doc,
+    serverTimestamp,
+    updateDoc,
+} from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
@@ -50,6 +56,22 @@ const Input = () => {
                 }),
             });
         }
+
+        await updateDoc(doc(db, "userChats", currentUser.uid), {
+            //update lastMessage for current user
+            [data.chatId + ".lastMessage"]: {
+                text,
+            },
+            [data.chatId + ".date"]: serverTimestamp(),
+        });
+
+        await updateDoc(doc(db, "userChats", data.user.uid), {
+            //update lastMessage for other user
+            [data.chatId + ".lastMessage"]: {
+                text,
+            },
+            [data.chatId + ".date"]: serverTimestamp(),
+        });
 
         setText("");
         setImage(null);
