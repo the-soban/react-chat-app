@@ -76,7 +76,7 @@ const Register = () => {
                 </a>
                 <h3 className="title">Register a new account</h3>
                 <form onSubmit={handleSubmit} className="form">
-                    <input type="text" placeholder="Your Display Name" />
+                    <input type="text" placeholder="Your Username" />
                     <input type="email" placeholder="Your Email" />
                     <input type="password" placeholder="Your Password" />
                     <input
