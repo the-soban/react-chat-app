@@ -5,9 +5,11 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
+import eyeIcon from "../images/eye.png";
 
 const Register = () => {
     const [error, setError] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -78,7 +80,17 @@ const Register = () => {
                 <form onSubmit={handleSubmit} className="form">
                     <input type="text" placeholder="Your Username" />
                     <input type="email" placeholder="Your Email" />
-                    <input type="password" placeholder="Your Password" />
+                    <div>
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Your Password"
+                        />
+                        <img
+                            src={eyeIcon}
+                            alt="eye icon"
+                            onClick={() => setShowPassword(!showPassword)}
+                        />
+                    </div>
                     <input
                         type="file"
                         placeholder="Your Avatar"

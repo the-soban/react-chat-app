@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AddIcon from "../images/addAvatar.png";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
