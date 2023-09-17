@@ -3,9 +3,11 @@ import AddIcon from "../images/addAvatar.png";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import eyeIcon from "../images/eye.png";
 
 const Login = () => {
     const [error, setError] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -33,7 +35,17 @@ const Login = () => {
                 <h3 className="title">Login to your account</h3>
                 <form onSubmit={handleSubmit} className="form">
                     <input type="email" placeholder="Your Email" />
-                    <input type="password" placeholder="Your Password" />
+                    <div>
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Your Password"
+                        />
+                        <img
+                            src={eyeIcon}
+                            alt="eye icon"
+                            onClick={() => setShowPassword(!showPassword)}
+                        />
+                    </div>
                     <button type="submit">Login</button>
                     {error && <span>An error occured!</span>}
                 </form>
